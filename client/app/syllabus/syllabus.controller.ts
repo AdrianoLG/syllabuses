@@ -15,6 +15,12 @@
                 });
             };
 
+            $scope.deleteSyllabus = function(syllabus) {
+                SyllabusService.delete({id: syllabus._id}, function() {
+                    console.log('Syllabus deleted');
+                });
+            };
+
             $scope.$on('$destroy', function() {
                 socket.unsyncUpdates('syllabus');
             });

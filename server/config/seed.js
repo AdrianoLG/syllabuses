@@ -27,38 +27,3 @@ User.find({}).remove()
             console.log('finished populating users');
         });
   });
-
-Syllabus.find({}).removeAsync()
-    .then(() => {
-        Syllabus.createAsync({
-            _id: '5677bcec37407aa60754252b',
-            academy: 'Zalaeta',
-            year: 2004,
-            title: 'Historia',
-            education: '3º ESO',
-            lecturer: 'Amparo',
-            owner: '569e69cc1ab998358d37667d',
-            objectives: 'Aprender historia',
-            iconurl: 'http://www.fillmurray.com/200/200',
-            weekplans: [{
-                week: 1,
-                sumary: 'Godos',
-                topics: 'Visigodos, godos y se juntan todos',
-                literature: 'Libro del profesor',
-                videos: 'YouTube a saco',
-                assignments: 'Trabajo cabrón',
-                teaser: 'Sí'
-            },
-            {
-                week: 2,
-                sumary: 'Romanos',
-                topics: 'Derecho y balanza',
-                literature: 'Biblia',
-                videos: 'Alternativos con Vimeo',
-                assignments: 'Picar piedra',
-                teaser: 'O no'
-            }]
-        })
-    }).then(() => {
-        console.log('finished populating syllabuses');
-    });

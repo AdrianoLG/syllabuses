@@ -1,8 +1,5 @@
-$primary-color: #428bca;
+$primary-color: rgb(63,81,181);
 $accent-color: white;
-input {
-    margin-right: 1em;
-}
 label {
     margin-right: .5em;
 }
@@ -18,15 +15,41 @@ label {
         text-align: center;
     }
 }
+.form-control {
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #ccc;
+}
+section {
+    h2 {
+        margin-left: 1em;
+        margin-top: 0;
+    }
+    md-toolbar {
+        margin-bottom: 2em;
+    }
+    form {
+        margin-left: 1em;
+    }
+}
 .margTop {
     margin-top: 1em;
 }
 .media-body {
     padding-left: 1em;
 }
-.media-body h4 {
-    margin-bottom: .8em;
+.media-body {
+    h4 {
+        margin-bottom: .8em;
+    }
 }
-.media-left img {
-    width: 100px;
+.media-left {
+    img {
+        width: 100px;
+    }
+}
+#addButton {
+    position: relative;
+    bottom: 1.5em;
+    margin-left: 3em;
 }
