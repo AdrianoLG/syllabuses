@@ -2,7 +2,7 @@
 (function(){
 
     angular.module('04MeanApp')
-        .controller('SyllabusCtrl', function($scope, SyllabusService, socket) {
+        .controller('SyllabusCtrl', function($scope, $state, SyllabusService, socket) {
 
             SyllabusService.query(function(syllabuses) {
                 $scope.syllabuses = syllabuses;
@@ -18,6 +18,12 @@
             $scope.deleteSyllabus = function(syllabus) {
                 SyllabusService.delete({id: syllabus._id}, function() {
                     console.log('Syllabus deleted');
+                });
+            };
+
+            $scope.goToSyllabus = function(syllabus) {
+                $state.go('weeks', {
+                    id: syllabus._id
                 });
             };
 
