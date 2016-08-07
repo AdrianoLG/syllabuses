@@ -3,7 +3,7 @@
 </header>
 <section class="container">
     <div class="col-md-9 col-md-offset-1">
-        <h2>Syllabuses:</h1>
+        <h2>Syllabuses:</h2>
         <hr>
         <form class="form-inline">
             <div class="form-group">
@@ -12,11 +12,48 @@
             </div>
             <div class="form-group">
                 <label for="lecturer">Lecturer</label>
-                <input ng-model="newSyllabus.lecturer" id="lecturer" name="lecturer" type="text" class="form-control" placeholder="Title">
+                <input ng-model="newSyllabus.lecturer" id="lecturer" name="lecturer" type="text" class="form-control" placeholder="Lecturer">
             </div>
             <button type="submit" class="btn btn-primary" ng-click="addNewSyllabus(newSyllabus)">New Syllabus</button>
-        </form>
-        <p><br>{{newSyllabus.title}}</p>
-        <p>{{newSyllabus.lecturer}}</p>
+        </form><br><br>
+        <ul class="list-group" ng-repeat="syllabus in syllabuses">
+            <li class="list-group-item">
+                <div class="media">
+                    <div class="media-left">
+                        <img class="img-rounded media-object pull-left" src="{{syllabus.iconurl}}">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{syllabus.title}}</h4>
+                        <!-- <p><strong>Academy</strong>: {{syllabus.academy}}</p>
+                        <p><strong>Year</strong>: {{syllabus.year}}</p>
+                        <p><strong>Title</strong>: {{syllabus.title}}</p>
+                        <p><strong>Education</strong>: {{syllabus.education}}</p> -->
+                        <p><strong>Lecturer</strong>: {{syllabus.lecturer ? syllabus.lecturer : 'Unknown'}}</p>
+                        <!-- <p><strong>Objectives</strong>: {{syllabus.objectives}}</p>-->
+                    </div>
+                </div>
+                <!-- <h5>Weekplans:</h5>
+                <div ng-repeat="weekplan in syllabus.weekplans">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Week: {{weekplan.week}}</strong></div>
+                        <div class="row">
+                            <div class="container margTop">
+                                <div class="col-md-6">
+                                    <p><strong>Summary</strong>: {{weekplan.sumary}}</p>
+                                    <p><strong>Topics</strong>: {{weekplan.topics}}</p>
+                                    <p><strong>Literature</strong>: {{weekplan.literature}}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Videos</strong>: {{weekplan.videos}}</p>
+                                    <p><strong>Assignments</strong>: {{weekplan.assignments}}</p>
+                                    <p><strong>Teaser</strong>: {{weekplan.teaser}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
+            </li>
+        </div>
     </div>
 </section>
