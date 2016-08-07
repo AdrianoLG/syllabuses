@@ -1,0 +1,22 @@
+<header class="jumbotron">
+    <h1>Course planner</h1>
+</header>
+<section class="container">
+    <div class="col-md-9 col-md-offset-1">
+        <h2>Syllabuses:</h1>
+        <hr>
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input ng-model="newSyllabus.title" id="title" name="title" type="text" class="form-control" placeholder="Title">
+            </div>
+            <div class="form-group">
+                <label for="lecturer">Lecturer</label>
+                <input ng-model="newSyllabus.lecturer" id="lecturer" name="lecturer" type="text" class="form-control" placeholder="Title">
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="addNewSyllabus(newSyllabus)">New Syllabus</button>
+        </form>
+        <p><br>{{newSyllabus.title}}</p>
+        <p>{{newSyllabus.lecturer}}</p>
+    </div>
+</section>

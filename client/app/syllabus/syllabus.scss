@@ -1,0 +1,20 @@
+$primary-color: #428bca;
+$accent-color: white;
+input {
+    margin-right: 1em;
+}
+label {
+    margin-right: .5em;
+}
+.navbar {
+    margin-bottom: 0;
+}
+.jumbotron {
+    background-color: $primary-color;
+    padding: 2em 0;
+    h1 {
+        font-size: 3.5em;
+        color: $accent-color;
+        text-align: center;
+    }
+}
