@@ -14,11 +14,11 @@
                 <input ng-model="newSyllabus.lecturer" id="lecturer" name="lecturer" type="text" class="form-control" placeholder="Lecturer">
             </md-input-container>
             <md-input-container>
-                <label for="iconurl">Lecturer</label>
+                <label for="iconurl">Icon</label>
                 <input ng-model="newSyllabus.iconurl" id="iconurl" name="iconurl" type="text" class="form-control" placeholder="Icon URL">
             </md-input-container>
             <md-button id="addButton" type="submit" ng-click="addNewSyllabus()" class="md-fab md-mini md-primary" aria-label="Add Syllabus">
-              <md-icon md-svg-src="/assets/images/add.svg"></md-icon>
+              <i class="fa fa-plus"></i>
           </md-button>
         </form>
         <h2>Syllabuses:</h2>
@@ -28,34 +28,12 @@
                     <img class="md-avatar" src="{{syllabus.iconurl}}">
                     <div class="md-list-item-text">
                         <h3>{{syllabus.title}}</h3>
-                        <!-- <p><strong>Academy</strong>: {{syllabus.academy}}</p>
-                        <p><strong>Year</strong>: {{syllabus.year}}</p>
-                        <p><strong>Title</strong>: {{syllabus.title}}</p>
-                        <p><strong>Education</strong>: {{syllabus.education}}</p> -->
                         <p><strong>Lecturer</strong>: {{syllabus.lecturer ? syllabus.lecturer : 'Unknown'}}</p>
-                        <!-- <p><strong>Objectives</strong>: {{syllabus.objectives}}</p>
-                        <h5>Weekplans:</h5>
-                        <div ng-repeat="weekplan in syllabus.weekplans">
-                            <div class=""><strong>Week: {{weekplan.week}}</strong></div>
-                            <div class="row">
-                                <div class="margTop">
-                                    <div class="col-md-6">
-                                        <p><strong>Summary</strong>: {{weekplan.sumary}}</p>
-                                        <p><strong>Topics</strong>: {{weekplan.topics}}</p>
-                                        <p><strong>Literature</strong>: {{weekplan.literature}}</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p><strong>Videos</strong>: {{weekplan.videos}}</p>
-                                        <p><strong>Assignments</strong>: {{weekplan.assignments}}</p>
-                                        <p><strong>Teaser</strong>: {{weekplan.teaser}}</p>
-                                    </div>
-                                </div>
-                            </div>-->
                     </div>
-                    <md-button class="md-secondary" ng-click="deleteSyllabus(syllabus)">Delete</md-button>
+                    <md-button class="md-secondary" ng-click="deleteSyllabus(syllabus)" ng-show="isOwner(syllabus)">Delete</md-button>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-content>
-    </div>
+    </div
 </section>

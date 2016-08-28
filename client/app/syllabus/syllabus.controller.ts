@@ -2,7 +2,13 @@
 (function(){
 
     angular.module('04MeanApp')
-        .controller('SyllabusCtrl', function($scope, $state, SyllabusService, socket) {
+        .controller('SyllabusCtrl', function($scope, $state, $mdToast, SyllabusService, socket, Auth) {
+
+            $scope.isAuthenticated = Auth.isLoggedIn;
+
+            $scope.isOwner = function(syllabus) {
+                return Auth.getCurrentUser()._id === syllabus.owner._id;
+            };
 
             SyllabusService.query(function(syllabuses) {
                 $scope.syllabuses = syllabuses;
@@ -17,7 +23,9 @@
 
             $scope.deleteSyllabus = function(syllabus) {
                 SyllabusService.delete({id: syllabus._id}, function() {
-                    console.log('Syllabus deleted');
+                    _.remove($scope.syllabuses, function(syl) {
+                        return syl._id === syllabus._id;
+                    });
                 });
             };
 

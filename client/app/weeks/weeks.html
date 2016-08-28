@@ -1,34 +1,201 @@
 <article class="content">
     <div class="row detail">
+        <section class="col-md-8 col-md-offset-2 margBot">
+            <md-button aria-label="Back" ng-click="goBack()"
+              class="margLeft md-raised md-primary"><i class="fa fa-arrow-left"></i> Back</md-button>
+        </section>
         <section class="col-md-8 col-md-offset-2">
             <img class="col-md-2" src="{{syllabus.iconurl}}">
             <div class="col-md-8 up">
                 <h3>{{syllabus.title}}</h3>
                 <h5>{{syllabus.education}} {{syllabus.education ? ', ' : ''}}{{syllabus.year}}</h5>
-                <p><strong>Lecturer</strong>: {{syllabus.academy}}{{syllabus.academy ? ', ' : ''}}{{syllabus.lecturer ? syllabus.lecturer : 'Unknown'}}</p>
-                <p><strong>Objectives</strong>: {{syllabus.objectives}}</p>
-            </div>
-        </section>
-        <section class="weekplans col-md-8 col-md-offset-2" ng-repeat="week in syllabus.weekplans">
-            <div class="row">
-                <div class="col-md-12 week"><strong>Week: {{week.week}}</strong></div>
+                <p><strong>Lecturer</strong>: {{syllabus.academy}}{{syllabus.academy ? ', ' : ''}}
+                  {{syllabus.lecturer ? syllabus.lecturer : 'Unknown'}}</p>
                 <div class="margTop">
-                    <div class="col-md-6">
-                        <p><strong>Summary</strong>: {{week.sumary}}</p>
-                        <p><strong>Topics</strong>: {{week.topics}}</p>
-                        <p><strong>Literature</strong>: {{week.literature}}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Videos</strong>: {{week.videos}}</p>
-                        <p><strong>Assignments</strong>: {{week.assignments}}</p>
-                        <p><strong>Teaser</strong>: {{week.teaser}}</p>
-                    </div>
+                    <h4>Objectives:</h4>
+                    <div ng-bind-html="syllabus.objectives"></div>
                 </div>
             </div>
-            <md-divider md-inset ng-if="!$last"></md-divider>
         </section>
-        <section class="col-md-8 col-md-offset-2">
-            <md-button class="col-md-1 md-raised md-primary margLeft" ng-click="goBack()"><i class="fa fa-arrow-left" aria-label="Go Back"></i></md-button>
+        <section class="weekplans col-md-8 col-md-offset-2">
+            <md-content ng-if="!editingWeekplan">
+                <form name="newWeekplanForm" ng-if="isAdmin()">
+                    <div class="row">
+                        <div class="col-md-3 margTop">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Week</label>
+                                <input required min="1" max="40" type="number" name="week"
+                                  ng-model="newWeekplan.week">
+                                <div ng-messages="newWeekplanForm.week.$error" role="alert">
+                                    <div ng-message="required">Please specify a week.</div>
+                                    <div ng-message="min">Must be a weeknumber 1-40</div>
+                                    <div ng-message="max">Must be a weeknumber 1-40</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Sumary</label>
+                                <input required md-maxlength="100" type="text" name="sumary" ng-model="newWeekplan.sumary">
+                                <div ng-messages="newWeekplanForm.sumary.$error" role="alert">
+                                    <div ng-message="md-maxlength">The sumary has to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Topics</label>
+                                <input type="text" md-maxlength="100" name="topics" ng-model="newWeekplan.topics">
+                                <div ng-messages="newWeekplanForm.topics.$error" role="alert">
+                                    <div ng-message="md-maxlength">Topics have to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="col-md-3 margTop">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Literature</label>
+                                <input type="text" md-maxlength="100" name="literature" ng-model="newWeekplan.literature">
+                                <div ng-messages="newWeekplanForm.literature.$error" role="alert">
+                                    <div ng-message="md-maxlength">Literature has to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Videos</label>
+                                <input type="text" md-maxlength="100" name="videos" ng-model="newWeekplan.videos">
+                                <div ng-messages="newWeekplanForm.videos.$error" role="alert">
+                                    <div ng-message="md-maxlength">Videos have to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Assignments</label>
+                                <input type="text" md-maxlength="100"  name="assignments" ng-model="newWeekplan.assignments">
+                                <div ng-messages="newWeekplanForm.assignments.$error" role="alert">
+                                    <div ng-message="md-maxlength">Assignments have to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="col-md-3 margTop">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Teaser</label>
+                                <input type="text" md-maxlength="100" name="teaser" ng-model="newWeekplan.teaser">
+                                <div ng-messages="newWeekplanForm.teaser.$error" role="alert">
+                                    <div ng-message="md-maxlength">Teaser has to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <md-switch ng-model="newWeekplan.enabled">
+                                    {{newWeekplanForm.enabled ? "Enabled" : "Disabled"}}
+                                </md-switch>
+                            </md-input-container>
+                            <md-button class="posRight md-raised md-accent" aria-label="Save changes" ng-click="addWeekplan(newWeekplanForm)" class="md-raised md-accent">Add</md-button>
+                        </div>
+                    </div>
+                </form>
+                <md-list>
+                    <md-list-item class="md-2-line" ng-click="goToWeekPlan(week, $event)"
+                      ng-repeat="week in syllabus.weekplans">
+                        <div class="md-list-item-text">
+                            <div class="row">
+                                <div class="col-md-12 week"><strong><i class="fa fa-calendar"></i>
+                                  Week: {{week.week}}</strong></div>
+                                <div class="margTop">
+                                    <div class="col-md-6">
+                                        <p><strong>Summary</strong>: {{week.sumary}}</p>
+                                        <p><strong>Topics</strong>: {{week.topics}}</p>
+                                        <p><strong>Literature</strong>: {{week.literature}}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Videos</strong>: {{week.videos}}</p>
+                                        <p><strong>Assignments</strong>: {{week.assignments}}</p>
+                                        <p><strong>Teaser</strong>: {{week.teaser}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <md-divider md-inset ng-if="!$last"></md-divider>
+                        </div>
+                        <md-button aria-label="Edit week" class="md-secondary"
+                        ng-click="editWeekPlan(week)" ng-if="isAdmin()"><i class="fa fa-pencil"></i></md-button>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+            <md-content ng-if="editingWeekplan">
+                <form name="editWeekplanForm">
+                    <div class="row">
+                        <h4 class="margLeft">Week {{editingWeekplan.week}}</h4>
+                        <div class="col-md-3 margTop">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Week</label>
+                                <input required min="1" max="40" type="number" name="week"
+                                  ng-model="editingWeekplan.week">
+                                <div ng-messages="editWeekplanForm.week.$error" role="alert">
+                                    <div ng-message="required">Please specify a week.</div>
+                                    <div ng-message="min">Must be a weeknumber 1-40</div>
+                                    <div ng-message="max">Must be a weeknumber 1-40</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Sumary</label>
+                                <input required md-maxlength="100" type="text" name="sumary" ng-model="editingWeekplan.sumary">
+                                <div ng-messages="editWeekplanForm.sumary.$error" role="alert">
+                                    <div ng-message="md-maxlength">The sumary has to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Topics</label>
+                                <input type="text" md-maxlength="100" name="topics" ng-model="editingWeekplan.topics">
+                                <div ng-messages="editWeekplanForm.topics.$error" role="alert">
+                                    <div ng-message="md-maxlength">Topics have to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="col-md-3 margTop">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Literature</label>
+                                <input type="text" md-maxlength="100" name="literature" ng-model="editingWeekplan.literature">
+                                <div ng-messages="editWeekplanForm.literature.$error" role="alert">
+                                    <div ng-message="md-maxlength">Literature has to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Videos</label>
+                                <input type="text" md-maxlength="100" name="videos" ng-model="editingWeekplan.videos">
+                                <div ng-messages="editWeekplanForm.videos.$error" role="alert">
+                                    <div ng-message="md-maxlength">Videos have to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Assignments</label>
+                                <input type="text" md-maxlength="100"  name="assignments" ng-model="editingWeekplan.assignments">
+                                <div ng-messages="editWeekplanForm.assignments.$error" role="alert">
+                                    <div ng-message="md-maxlength">Assignments have to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="col-md-3 margTop">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Teaser</label>
+                                <input type="text" md-maxlength="100" name="teaser" ng-model="editingWeekplan.teaser">
+                                <div ng-messages="editWeekplanForm.teaser.$error" role="alert">
+                                    <div ng-message="md-maxlength">Teaser has to be less than 100 characters long.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <md-switch ng-model="editingWeekplan.enabled">
+                                    {{editingWeekplan.enabled ? "Enabled" : "Disabled"}}
+                                </md-switch>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div layout-gt-xs="row">
+                            <md-button aria-label="Delete week" ng-click="deleteWeekPlan(week, $event)"
+                            class="md-raised md-warn">Delete</md-button>
+                            <p flex></p>
+                            <md-button aria-label="Undo changes" ng-click="undoWeekplanEdit($event)"
+                            class="md-raised">Cancel</md-button>
+                            <md-button aria-label="Save changes" ng-click="saveWeekplanEdit($event)"
+                            class="md-raised md-accent">Save</md-button>
+                        </div>
+                    </div>
+                </form>
+            </md-content>
         </section>
     </div>
 </article>
