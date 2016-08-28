@@ -20,10 +20,12 @@ var UserSchema = new Schema({
       }
     }
   },
-  role: {
-    type: String,
+  role: [{
+     type: String,
     default: 'user'
-  },
+  }, {
+
+  }],
   password: {
     type: String,
     required: function() {

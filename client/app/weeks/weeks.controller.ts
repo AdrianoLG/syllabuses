@@ -8,7 +8,6 @@ angular.module('04MeanApp')
 
     SyllabusService.get({id: $stateParams.id}, function(syllabus) {
         $scope.syllabus = syllabus;
-        console.log($scope.syllabus);
     });
 
     $scope.goBack = function() {
