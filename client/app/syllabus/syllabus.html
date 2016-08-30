@@ -23,21 +23,20 @@
     </form>
     <h2>Syllabuses:</h2>
     <md-input-container class="col-md-12">
-        <md-icon md-svg-src="../assets/images/icons/magnifier.svg"></md-icon>
-        <input id="searchText" ng-model="search" class="form-control" placeholder="Write what you're looking for">
+      <md-icon md-svg-src="../assets/images/icons/magnifier.svg"></md-icon>
+      <input id="searchText" ng-model="search" class="form-control" placeholder="Write what you're looking for">
     </md-input-container>
-    <md-button id="title" class="margTop2 md-raised md-mini md-warn" ng-click="sort('title')">
-        <i class="fa" ng-show="propToSortOn=='title'" ng-class="{'fa-arrow-down': reverse, 'fa-arrow-up': !reverse}">
+    <md-button id="title" class="margTop2 md-raised md-mini md-accent" ng-click="sort('title')">
+      <i class="fa" ng-show="propToSortOn=='title'" ng-class="{'fa-arrow-down': reverse, 'fa-arrow-up': !reverse}">
         </i> Title
     </md-button>
-    <md-button id="lecturer" class="margFilter md-raised md-mini md-warn"  ng-click="sort('lecturer')">
-        <i class="fa" ng-show="propToSortOn=='lecturer'" ng-class="{'fa-arrow-down': reverse, 'fa-arrow-up': !reverse}">
+    <md-button id="lecturer" class="margFilter md-raised md-mini md-accent" ng-click="sort('lecturer')">
+      <i class="fa" ng-show="propToSortOn=='lecturer'" ng-class="{'fa-arrow-down': reverse, 'fa-arrow-up': !reverse}">
         </i> Lecturer
     </md-button>
     <md-content>
       <md-list>
-        <md-list-item class="md-2-line" ng-click="goToSyllabus(syllabus)"
-            ng-repeat="syllabus in syllabuses | orderBy: propToSortOn: reverse | filter: { title: search }">
+        <md-list-item class="md-2-line" ng-click="goToSyllabus(syllabus)" dir-paginate="syllabus in syllabuses | orderBy: propToSortOn: reverse | filter: { title: search } | itemsPerPage: 10">
           <img class="md-avatar" src="{{syllabus.iconurl}}">
           <div class="md-list-item-text">
             <h3>{{syllabus.title}}</h3>
@@ -48,4 +47,6 @@
         </md-list-item>
       </md-list>
     </md-content>
-  </div </section>
+    <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+  </div>
+</section>

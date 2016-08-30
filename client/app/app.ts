@@ -12,7 +12,8 @@ angular.module('04MeanApp', [
   'ui.bootstrap',
   'validation.match',
   'ngMaterial',
-  'ngMessages'
+  'ngMessages',
+  'angularUtils.directives.dirPagination'
 ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider

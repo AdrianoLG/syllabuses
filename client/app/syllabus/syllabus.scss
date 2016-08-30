@@ -1,5 +1,20 @@
 $primary-color: rgb(63,81,181);
 $accent-color: white;
+.pagination > li > a, .pagination > li > span {
+    color: $primary-color;
+    :hover {
+        color: rgb(44, 66, 160);
+    }
+}
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+    color: $accent-color;
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+.pagination {
+    display: table;
+    margin: 2em auto;
+}
 label {
     margin-right: .5em;
 }
