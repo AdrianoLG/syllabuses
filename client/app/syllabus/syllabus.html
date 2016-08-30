@@ -1,39 +1,51 @@
 <header class="jumbotron">
-    <h1>Course planner</h1>
+  <h1>Course planner</h1>
 </header>
 <section class="container">
-    <div class="col-md-8 col-md-offset-2">
-        <form>
-            <h4>New Syllabus</h4>
-            <md-input-container>
-                <label for="title">Title</label>
-                <input ng-model="newSyllabus.title" id="title" name="title" type="text" class="form-control" placeholder="Title">
-            </md-input-container>
-            <md-input-container>
-                <label for="lecturer">Lecturer</label>
-                <input ng-model="newSyllabus.lecturer" id="lecturer" name="lecturer" type="text" class="form-control" placeholder="Lecturer">
-            </md-input-container>
-            <md-input-container>
-                <label for="iconurl">Icon</label>
-                <input ng-model="newSyllabus.iconurl" id="iconurl" name="iconurl" type="text" class="form-control" placeholder="Icon URL">
-            </md-input-container>
-            <md-button id="addButton" type="submit" ng-click="addNewSyllabus()" class="md-fab md-mini md-primary" aria-label="Add Syllabus">
-              <i class="fa fa-plus"></i>
-          </md-button>
-        </form>
-        <h2>Syllabuses:</h2>
-        <md-content>
-            <md-list>
-                <md-list-item class="md-2-line" ng-click="goToSyllabus(syllabus)" ng-repeat="syllabus in syllabuses">
-                    <img class="md-avatar" src="{{syllabus.iconurl}}">
-                    <div class="md-list-item-text">
-                        <h3>{{syllabus.title}}</h3>
-                        <p><strong>Lecturer</strong>: {{syllabus.lecturer ? syllabus.lecturer : 'Unknown'}}</p>
-                    </div>
-                    <md-button class="md-secondary" ng-click="deleteSyllabus(syllabus)" ng-show="isOwner(syllabus)">Delete</md-button>
-                    <md-divider ng-if="!$last"></md-divider>
-                </md-list-item>
-            </md-list>
-        </md-content>
-    </div
-</section>
+  <div class="col-md-8 col-md-offset-2">
+    <form>
+      <h4>New Syllabus</h4>
+      <md-input-container>
+        <label for="title">Title</label>
+        <input ng-model="newSyllabus.title" id="title" name="title" type="text" class="form-control" placeholder="Title">
+      </md-input-container>
+      <md-input-container>
+        <label for="lecturer">Lecturer</label>
+        <input ng-model="newSyllabus.lecturer" id="lecturer" name="lecturer" type="text" class="form-control" placeholder="Lecturer">
+      </md-input-container>
+      <md-input-container>
+        <label for="iconurl">Icon</label>
+        <input ng-model="newSyllabus.iconurl" id="iconurl" name="iconurl" type="text" class="form-control" placeholder="Icon URL">
+      </md-input-container>
+      <md-button id="addButton" type="submit" ng-click="addNewSyllabus()" class="md-fab md-mini md-primary" aria-label="Add Syllabus">
+        <i class="fa fa-plus"></i>
+      </md-button>
+    </form>
+    <h2>Syllabuses:</h2>
+    <md-input-container class="col-md-12">
+        <md-icon md-svg-src="../assets/images/icons/magnifier.svg"></md-icon>
+        <input id="searchText" ng-model="search" class="form-control" placeholder="Write what you're looking for">
+    </md-input-container>
+    <md-button id="title" class="margTop2 md-raised md-mini md-warn" ng-click="sort('title')">
+        <i class="fa" ng-show="propToSortOn=='title'" ng-class="{'fa-arrow-down': reverse, 'fa-arrow-up': !reverse}">
+        </i> Title
+    </md-button>
+    <md-button id="lecturer" class="margFilter md-raised md-mini md-warn"  ng-click="sort('lecturer')">
+        <i class="fa" ng-show="propToSortOn=='lecturer'" ng-class="{'fa-arrow-down': reverse, 'fa-arrow-up': !reverse}">
+        </i> Lecturer
+    </md-button>
+    <md-content>
+      <md-list>
+        <md-list-item class="md-2-line" ng-click="goToSyllabus(syllabus)"
+            ng-repeat="syllabus in syllabuses | orderBy: propToSortOn: reverse | filter: { title: search }">
+          <img class="md-avatar" src="{{syllabus.iconurl}}">
+          <div class="md-list-item-text">
+            <h3>{{syllabus.title}}</h3>
+            <p><strong>Lecturer</strong>: {{syllabus.lecturer ? syllabus.lecturer : 'Unknown'}}</p>
+          </div>
+          <md-button class="md-secondary" ng-click="deleteSyllabus(syllabus)" ng-show="isOwner(syllabus)">Delete</md-button>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div </section>

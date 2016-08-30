@@ -4,6 +4,7 @@ import User from './user.model';
 import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
+import _ from 'lodash';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -19,6 +20,35 @@ function handleError(res, statusCode) {
   };
 }
 
+function respondWithResult(res, statusCode) {
+  statusCode = statusCode || 200;
+  return function(entity) {
+    if (entity) {
+      res.status(statusCode).json(entity);
+    }
+  };
+}
+
+function handleEntityNotFound(res) {
+  return function(entity) {
+    if (!entity) {
+      res.status(404).end();
+      return null;
+    }
+    return entity;
+  };
+}
+
+function saveUpdates(updates) {
+  return function(entity) {
+    var updated = _.assign(entity, updates);
+    return updated.saveAsync()
+      .then(updated => {
+        return updated;
+      });
+  };
+}
+
 /**
  * Get list of users
  * restriction: 'admin'
@@ -30,6 +60,21 @@ export function index(req, res) {
     })
     .catch(handleError(res));
 }
+
+/**
+ * Updates an existing user in the DB
+ */
+
+ export function update(req, res) {
+     if(req.body._id) {
+        delete req.body._id;
+    }
+    User.findByIdAsync(req.params.id)
+        .then(handleEntityNotFound(res))
+        .then(saveUpdates(req.body))
+        .then(respondWithResult(res))
+        .catch(handleError(res));
+ }
 
 /**
  * Creates a new user

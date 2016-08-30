@@ -88,4 +88,39 @@ Syllabus.find({}).remove()
     .then(() => {
         console.log('finished populating users');
     });
+
+    var syllaArray = [];
+    for (var i = 1; i < 200; i++) {
+        syllaArray.push({
+            academy: 'Escuela ' + i,
+            year: 1959 + i,
+            title: 'Asignatura ' + i,
+            education: '1º ESO',
+            lecturer: 'Lars Bilde',
+            objectives: '<ul><li>Objetivo 4</li><li>Objetivo 5</li><li>Objetivo 6</li></ul>',
+            iconurl: 'http://baconmockup.com/200/200',
+            owner: '569e69cc1ab998358d37667d',
+            weekplans: [{
+                week: i,
+                sumary: 'Sumary',
+                topics: 'Topics',
+                literature: 'Literature',
+                videos: 'Videos',
+                assignments: 'Assignments',
+                teaser: 'Teaser'
+            }, {
+                week: i + 1,
+                sumary: 'Sumary',
+                topics: 'Topics',
+                literature: 'Literature',
+                videos: 'Videos',
+                assignments: 'Assignments',
+                teaser: 'Teaser'
+            }]
+        });
+    }
+    Syllabus.createAsync(syllaArray)
+        .then(() => {
+            console.log('Finished populating crazy lots of syllabuses');
+        });
 });
