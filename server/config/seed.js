@@ -91,6 +91,9 @@ Syllabus.find({}).remove()
 
     var syllaArray = [];
     for (var i = 1; i < 200; i++) {
+        var str = '' + i;
+        var pad = '000';
+        i = pad.substring(0, pad.length - str.length) + str;
         syllaArray.push({
             academy: 'Escuela ' + i,
             year: 1959 + i,
