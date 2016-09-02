@@ -1,8 +1,10 @@
-# 04-mean
+# Angular Fullstack test
 
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.7.6.
+Trying [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) following Lars Bilde's [Tutorial](https://www.youtube.com/watch?v=FrTxjO6waNs&index=1&list=PL8jcXf-CLpxpHNKYAY1GM_b6_L0FhFLe0)
 
 ## Getting Started
+
+
 
 ### Prerequisites
 
@@ -15,18 +17,10 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 ### Developing
 
-1. Run `npm install` to install server dependencies.
+1. Run `mongo` in a separate shell to keep an instance of the MongoDB Daemon running
 
-2. Run `bower install` to install front-end dependencies.
+2. Run `npm install` to install server dependencies.
 
-3. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
+3. Run `bower install` to install front-end dependencies.
 
 4. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
-
-## Build & development
-
-Run `grunt build` for building and `grunt serve` for preview.
-
-## Testing
-
-Running `npm test` will run the unit tests with karma.
